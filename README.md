@@ -23,4 +23,3 @@ Mở `index.html` bằng trình duyệt. Không cần cài đặt gì.
 
 - Dữ liệu thêm trên trang chưa được lưu: tải lại là mất. Muốn dùng hằng ngày, cần thêm nơi lưu dữ liệu (ví dụ nhập từ file CSV hoặc dùng cơ sở dữ liệu).
 - Trang dùng phông Be Vietnam Pro từ Google Fonts; nếu không có mạng, trình duyệt dùng phông hệ thống.
-- Cập nhật lần 1

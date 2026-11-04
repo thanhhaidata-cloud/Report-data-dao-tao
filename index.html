@@ -38,7 +38,7 @@
 </div>
 <div class="card">
   <div class="wrap"><table>
-    <thead><tr><th>STT</th><th>Chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Phòng đào tạo</th><th>Ngày</th><th class="n">Thời lượng (giờ)</th><th class="n">Học viên</th><th>Trạng thái</th></tr></thead>
+    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th class="n">Thời lượng</th><th class="n">Số học viên</th><th>Trạng thái</th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
   <form id="f">
@@ -48,9 +48,9 @@
     <input id="fTeacher" placeholder="Tên giảng viên" required>
     <input id="fCompany" placeholder="Công ty" required>
     <input id="fDate" type="date" required aria-label="Ngày đào tạo">
-    <input id="fHours" type="number" min="0.5" step="0.5" placeholder="Số giờ" required>
-    <input id="fStu" type="number" min="0" step="1" placeholder="Học viên" required>
-    <input id="fRoom" placeholder="Phòng đào tạo" required>
+    <input id="fHours" type="number" min="0.5" step="0.5" placeholder="Thời lượng (giờ)" required>
+    <input id="fStu" type="number" min="0" step="1" placeholder="Số học viên" required>
+    <input id="fRoom" placeholder="Địa điểm đào tạo" required>
     <button class="btn" type="submit">Thêm chuyên đề</button>
   </form>
 </div>

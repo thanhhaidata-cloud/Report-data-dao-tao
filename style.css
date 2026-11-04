@@ -27,7 +27,7 @@ h1{font-size:1.5rem;margin:0 0 4px}
 .btn{border-radius:8px}
 button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 .wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:820px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:920px}
 th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
 th{color:var(--mute);font-weight:500;font-size:.8rem}
 td.n,th.n{text-align:right}
@@ -35,6 +35,6 @@ td.n,th.n{text-align:right}
 .tag.ok{background:var(--teal-soft);color:var(--teal)}.tag.no{background:var(--amber-soft);color:var(--amber)}
 .grp td{background:var(--bg);padding-top:14px}.grp span{color:var(--mute);font-size:.8rem;margin-left:8px}
 .empty{color:var(--mute);padding:20px 8px;text-align:center}
-form{display:grid;grid-template-columns:2fr 1fr 1.3fr 1fr .8fr .8fr 1fr auto;gap:8px;margin-top:12px}
+form{display:grid;grid-template-columns:2fr 1fr 1.3fr 1.2fr 1fr .8fr .8fr 1fr auto;gap:8px;margin-top:12px}
 input,select{font:inherit;font-size:.85rem;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-width:0}
 @media (max-width:720px){.top{grid-template-columns:1fr}form{grid-template-columns:1fr 1fr}form input:first-child{grid-column:1/-1}.hero{flex-direction:column;align-items:flex-start}}
