@@ -10,12 +10,15 @@ let data=[
  {n:"Lãnh đạo nhóm cho trưởng bộ phận",c:"Khóa học 2",d:off(3),h:6,s:15,t:"Võ Thanh Hà",cty:"Công ty B",p:"Phòng A2",ok:false},
  {n:"Quy trình ISO nội bộ",c:"Khóa học 2",d:off(12),h:2.5,s:50,t:"Nguyễn Văn An",cty:"Công ty A",p:"Phòng B1",ok:false}
 ];
-let filter="all";
+let filter="all",from="",to="",ym="",yr="";
 const mon=new Date(+today-((today.getDay()+6)%7)*day), sun=new Date(+mon+6*day);
 function inRange(r){
   const d=new Date(r.d+"T00:00:00");
   if(filter==="week")return d>=mon&&d<=sun;
   if(filter==="month")return d.getMonth()===today.getMonth()&&d.getFullYear()===today.getFullYear();
+  if(filter==="range")return !(from&&r.d<from)&&!(to&&r.d>to);
+  if(filter==="ym")return r.d.slice(0,7)===ym;
+  if(filter==="year")return r.d.slice(0,4)===yr;
   return true;
 }
 const fmt=n=>(Math.round(n*10)/10).toLocaleString("vi-VN");
@@ -34,17 +37,31 @@ function render(){
   $("notTxt").textContent=not+" chuyên đề chưa hoàn thành";
   let lastC=null,seq=0;const list=data.map((r,i)=>({r,i})).filter(x=>inRange(x.r)).sort((a,b)=>a.r.c.localeCompare(b.r.c,"vi",{numeric:true})||(a.r.d<b.r.d?-1:1));
   $("rows").innerHTML=list.length?list.map(({r,i},k)=>{
-    const [y,m,dd]=r.d.split("-");let head="";if(r.c!==lastC){lastC=r.c;seq=0;const g=list.filter(z=>z.r.c===r.c),gd=g.filter(z=>z.r.ok).length;head=`<tr class="grp"><td colspan="9"><b>${esc(r.c)}</b><span>${g.length} chuyên đề, ${gd} đã hoàn thành</span></td></tr>`}seq++;
-    return head+`<tr><td>${seq}</td><td>${esc(r.n)}</td><td>${esc(r.t)}</td><td>${esc(r.cty||"")}</td><td>${esc(r.p)}</td><td>${dd}/${m}/${y}</td><td class="n">${fmt(r.h)} giờ</td><td class="n">${r.s}</td>
+    const [y,m,dd]=r.d.split("-");let head="";if(r.c!==lastC){lastC=r.c;seq=0;const g=list.filter(z=>z.r.c===r.c),gd=g.filter(z=>z.r.ok).length;head=`<tr class="grp"><td colspan="10"><b>${esc(r.c)}</b><span>${g.length} chuyên đề, ${gd} đã hoàn thành</span></td></tr>`}seq++;
+    return head+`<tr><td>${seq}</td><td>${esc(r.n)}</td><td>${esc(r.t)}</td><td>${esc(r.cty||"")}</td><td>${esc(r.p)}</td><td>${dd}/${m}/${y}</td><td>${fmt(r.h)} giờ</td><td>${r.s}</td><td>${fmt(r.h*r.s)} giờ</td>
     <td><button class="tag ${r.ok?"ok":"no"}" data-i="${i}" title="Bấm để đổi trạng thái">${r.ok?"Hoàn thành":"Chưa hoàn thành"}</button></td></tr>`}).join("")
-    :`<tr><td colspan="9" class="empty">Chưa có chuyên đề nào trong khoảng thời gian này. Thêm chuyên đề ở phía dưới.</td></tr>`;
+    :`<tr><td colspan="10" class="empty">Chưa có chuyên đề nào trong khoảng thời gian này. Thêm chuyên đề ở phía dưới.</td></tr>`;
   document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===filter));
 }
-document.querySelector(".tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){filter=b.dataset.f;render()}});
+function clearCtl(keep){
+  if(keep!=="range"){$("fFrom").value="";$("fTo").value=""}
+  if(keep!=="ym")$("fMonth").value="";
+  if(keep!=="year")$("fYear").value="";
+}
+function fillYears(){
+  const s=$("fYear"),cur=s.value;
+  const ys=[...new Set(data.map(r=>r.d.slice(0,4)).concat(String(today.getFullYear())))].sort();
+  s.innerHTML='<option value="">Tất cả</option>'+ys.map(y=>`<option value="${y}">${y}</option>`).join("");
+  s.value=cur;
+}
+document.querySelector(".tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){filter=b.dataset.f;clearCtl("");render()}});
+["fFrom","fTo"].forEach(id=>$(id).addEventListener("change",()=>{clearCtl("range");from=$("fFrom").value;to=$("fTo").value;filter=(from||to)?"range":"all";render()}));
+$("fMonth").addEventListener("change",()=>{clearCtl("ym");ym=$("fMonth").value;filter=ym?"ym":"all";render()});
+$("fYear").addEventListener("change",()=>{clearCtl("year");yr=$("fYear").value;filter=yr?"year":"all";render()});
 $("rows").addEventListener("click",e=>{const b=e.target.closest(".tag");if(b){const r=data[+b.dataset.i];r.ok=!r.ok;render()}});
 $("f").addEventListener("submit",e=>{
   e.preventDefault();
   data.push({n:$("fName").value.trim(),c:$("fCourse").value.trim(),t:$("fTeacher").value.trim(),cty:$("fCompany").value.trim(),p:$("fRoom").value.trim(),d:$("fDate").value,h:+$("fHours").value,s:+$("fStu").value,ok:false});
-  e.target.reset();render();
+  e.target.reset();fillYears();render();
 });
-render();
+fillYears();render();

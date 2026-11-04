@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dashboard chương trình đào tạo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <main>
@@ -36,9 +36,16 @@
     <button data-f="all" aria-pressed="true">Tất cả</button>
   </div>
 </div>
+<div class="flt">
+  <label>Từ ngày <input type="date" id="fFrom"></label>
+  <label>đến ngày <input type="date" id="fTo"></label>
+  <label>Tháng <input type="month" id="fMonth"></label>
+  <label>Năm <select id="fYear"><option value="">Tất cả</option></select></label>
+</div>
 <div class="card">
   <div class="wrap"><table>
-    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th class="n">Thời lượng</th><th class="n">Số học viên</th><th>Trạng thái</th></tr></thead>
+    <colgroup><col style="width:4%"><col style="width:15%"><col style="width:14%"><col style="width:14%"><col style="width:14%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:8%"><col style="width:11%"></colgroup>
+    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th>Thời lượng</th><th>Số học viên</th><th>Số giờ đào tạo</th><th>Trạng thái</th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
   <form id="f">
@@ -55,6 +62,6 @@
   </form>
 </div>
 </main>
-<script src="script.js?v=3"></script>
+<script src="script.js?v=4"></script>
 </body>
 </html>
