@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard chương trình đào tạo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<h1>Chương trình đào tạo công ty</h1>
+<p class="sub">Dữ liệu mẫu. Thêm chuyên đề hoặc bấm vào trạng thái để cập nhật, các chỉ số tự tính lại.</p>
+
+<section class="top">
+  <div class="card hero">
+    <div class="ring" id="ring"><span id="pct">0%</span></div>
+    <div>
+      <p class="big" id="doneTxt"></p>
+      <p class="muted" id="notTxt"></p>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="card k"><b id="kTotal">0</b><small>Tổng chuyên đề</small></div>
+    <div class="card k"><b id="kHours">0</b><small>Tổng thời gian (giờ)</small></div>
+    <div class="card k"><b id="kStu">0</b><small>Lượt học viên tham dự</small></div>
+    <div class="card k warn"><b id="kNot">0</b><small>Chưa hoàn thành</small></div>
+  </div>
+</section>
+
+<div class="bar">
+  <h2>Danh sách chuyên đề</h2>
+  <div class="tabs" role="group" aria-label="Lọc theo thời gian">
+    <button data-f="week" aria-pressed="false">Tuần này</button>
+    <button data-f="month" aria-pressed="false">Tháng này</button>
+    <button data-f="all" aria-pressed="true">Tất cả</button>
+  </div>
+</div>
+<div class="card">
+  <div class="wrap"><table>
+    <thead><tr><th>STT</th><th>Chuyên đề</th><th>Giảng viên</th><th>Phòng đào tạo</th><th>Ngày</th><th class="n">Thời lượng (giờ)</th><th class="n">Học viên</th><th>Trạng thái</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <form id="f">
+    <input id="fName" placeholder="Tên chuyên đề" required>
+    <input id="fCourse" list="courses" placeholder="Khóa học" required>
+    <datalist id="courses"><option value="Khóa học 1"><option value="Khóa học 2"></datalist>
+    <input id="fTeacher" placeholder="Tên giảng viên" required>
+    <input id="fDate" type="date" required aria-label="Ngày đào tạo">
+    <input id="fHours" type="number" min="0.5" step="0.5" placeholder="Số giờ" required>
+    <input id="fStu" type="number" min="0" step="1" placeholder="Học viên" required>
+    <input id="fRoom" placeholder="Phòng đào tạo" required>
+    <button class="btn" type="submit">Thêm chuyên đề</button>
+  </form>
+</div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
