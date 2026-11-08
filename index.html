@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dashboard chương trình đào tạo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <main>
@@ -42,12 +42,22 @@
   <label>Tháng <input type="month" id="fMonth"></label>
   <label>Năm <select id="fYear"><option value="">Tất cả</option></select></label>
 </div>
+<div class="tools">
+  <label class="btn" for="fFile">Nhập từ Excel</label>
+  <input type="file" id="fFile" accept=".xlsx,.xls,.csv">
+  <select id="fMode" aria-label="Cách nhập dữ liệu"><option value="add">Thêm vào dữ liệu hiện có</option><option value="replace">Thay thế toàn bộ dữ liệu</option></select>
+  <button class="btn" type="button" id="bTpl">Tải file mẫu</button>
+  <button class="btn" type="button" id="bExp">Xuất Excel</button>
+  <button class="btn" type="button" id="bClr">Xóa tất cả</button>
+  <span id="msg" role="status"></span>
+</div>
 <div class="card">
   <div class="wrap"><table>
-    <colgroup><col style="width:4%"><col style="width:15%"><col style="width:14%"><col style="width:14%"><col style="width:14%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:8%"><col style="width:11%"></colgroup>
-    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th>Thời lượng</th><th>Số học viên</th><th>Số giờ đào tạo</th><th>Trạng thái</th></tr></thead>
+    <colgroup><col style="width:3%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:7%"><col style="width:10%"><col style="width:8%"></colgroup>
+    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th>Thời lượng</th><th>Số học viên</th><th>Số giờ đào tạo</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
+  <p class="muted" id="fHint">Thêm chuyên đề mới</p>
   <form id="f">
     <input id="fName" placeholder="Tên chuyên đề" required>
     <input id="fCourse" list="courses" placeholder="Khóa học" required>
@@ -58,10 +68,12 @@
     <input id="fHours" type="number" min="0.5" step="0.5" placeholder="Thời lượng (giờ)" required>
     <input id="fStu" type="number" min="0" step="1" placeholder="Số học viên" required>
     <input id="fRoom" placeholder="Địa điểm đào tạo" required>
-    <button class="btn" type="submit">Thêm chuyên đề</button>
+    <button class="btn" type="submit" id="fSubmit">Thêm chuyên đề</button>
+    <button class="btn" type="button" id="fCancel" hidden>Hủy</button>
   </form>
 </div>
 </main>
-<script src="script.js?v=4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>

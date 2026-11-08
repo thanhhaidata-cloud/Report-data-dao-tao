@@ -21,5 +21,7 @@ Mở `index.html` bằng trình duyệt. Không cần cài đặt gì.
 
 ## Lưu ý
 
-- Dữ liệu thêm trên trang chưa được lưu: tải lại là mất. Muốn dùng hằng ngày, cần thêm nơi lưu dữ liệu (ví dụ nhập từ file CSV hoặc dùng cơ sở dữ liệu).
+- Dữ liệu thêm, sửa, xóa hoặc nhập từ Excel được lưu trong trình duyệt của máy đang dùng (localStorage). Máy hoặc trình duyệt khác sẽ không thấy. Để chuyển dữ liệu sang máy khác, bấm Xuất Excel rồi Nhập từ Excel ở máy đó.
+- Nhập từ Excel: bấm Tải file mẫu để lấy đúng tên cột (Khóa học, Tên chuyên đề, Giảng viên, Công ty, Địa điểm đào tạo, Ngày đào tạo, Thời lượng (giờ), Số học viên, Trạng thái). Ngày nhập dạng dd/mm/yyyy hoặc kiểu ngày của Excel. Dòng thiếu tên hoặc ngày sẽ bị bỏ qua.
+- Chức năng Excel dùng thư viện SheetJS tải từ cdnjs, nên cần có mạng.
 - Trang dùng phông Be Vietnam Pro từ Google Fonts; nếu không có mạng, trình duyệt dùng phông hệ thống.
