@@ -40,6 +40,9 @@ th{color:var(--mute);font-weight:500;font-size:.8rem}
 #msg{font-size:.85rem;color:var(--teal)}
 .act{font:inherit;font-size:.78rem;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:3px 8px;margin-right:4px;cursor:pointer}
 .act.del{color:var(--amber)}
+.btn.pri{background:var(--teal);color:var(--card);border-color:var(--teal)}
+.view .tools,.view #fHint,.view #f,.view .actc{display:none}
+.view .tag{pointer-events:none;cursor:default}
 .empty{color:var(--mute);padding:20px 8px;text-align:left}
 .flt{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin:0 0 10px;font-size:.85rem;color:var(--mute)}
 .flt label{display:flex;align-items:center;gap:6px}

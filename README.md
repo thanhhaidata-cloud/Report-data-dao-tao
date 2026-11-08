@@ -1,27 +1,31 @@
 # Dashboard chương trình đào tạo
 
-Trang web tĩnh (HTML, CSS, JavaScript thuần) để theo dõi chương trình đào tạo của công ty: tổng chuyên đề, tổng thời gian, số học viên, tỷ lệ hoàn thành, chuyên đề theo tuần/tháng, nhóm theo khóa học.
+Trang web tĩnh (HTML, CSS, JavaScript thuần) để theo dõi chương trình đào tạo của công ty.
 
-## Cấu trúc
+## Các file
 
-- `index.html`: giao diện
-- `style.css`: kiểu dáng (có chế độ sáng/tối tự động)
-- `script.js`: dữ liệu mẫu và xử lý. Sửa mảng `data` ở đầu file để đổi dữ liệu.
+- `index.html`: trang chỉ để xem. Gửi địa chỉ trang này cho mọi người.
+- `admin.html`: trang quản trị (thêm, sửa, xóa, nhập Excel). Chỉ dùng cho người quản lý.
+- `data.js`: dữ liệu mà mọi người nhìn thấy trên trang xem.
+- `style.css`, `script.js`: giao diện và xử lý.
 
-## Chạy thử trên máy
+## Cập nhật số liệu cho mọi người
 
-Mở `index.html` bằng trình duyệt. Không cần cài đặt gì.
+1. Mở `admin.html` (cùng trình duyệt đã nhập dữ liệu), thêm, sửa, xóa hoặc nhập từ Excel.
+2. Bấm **Xuất dữ liệu để đăng**, trình duyệt tải về file `data.js`.
+3. Vào repository trên GitHub, **Add file > Upload files**, kéo `data.js` vào để thay file cũ, rồi **Commit changes**.
+4. Chờ một đến hai phút (có thể đến khoảng 10 phút do bộ nhớ đệm), trang xem sẽ có số liệu mới.
+
+Dữ liệu sửa trên `admin.html` chỉ lưu trong trình duyệt của máy đó (localStorage) cho đến khi bạn đăng `data.js`. Người khác mở `admin.html` cũng chỉ sửa được trên máy họ, không ảnh hưởng người xem. Chỉ người có quyền ghi vào repository mới thay đổi được `data.js`.
+
+## Nhập từ Excel
+
+Bấm **Tải file mẫu** để lấy đúng tên cột: Khóa học, Tên chuyên đề, Giảng viên, Công ty, Địa điểm đào tạo, Ngày đào tạo, Thời lượng (giờ), Số học viên, Trạng thái. Ngày nhập dạng dd/mm/yyyy hoặc kiểu ngày của Excel. Dòng thiếu tên hoặc ngày sẽ bị bỏ qua. Chức năng này dùng thư viện SheetJS tải từ cdnjs nên cần có mạng.
 
 ## Đưa lên GitHub Pages
 
-1. Tạo repository mới trên GitHub, tải toàn bộ file trong thư mục này lên (nhánh `main`).
-2. Vào **Settings > Pages**.
-3. Ở mục **Build and deployment**, chọn **Deploy from a branch**, nhánh `main`, thư mục `/ (root)`, rồi bấm Save.
-4. Chờ ít phút, GitHub sẽ hiện địa chỉ dạng `https://<tên-tài-khoản>.github.io/<tên-repo>/`.
+Tải toàn bộ file lên repository (nhánh `main`), vào **Settings > Pages**, chọn **Deploy from a branch**, nhánh `main`, thư mục `/ (root)`, rồi Save.
 
 ## Lưu ý
 
-- Dữ liệu thêm, sửa, xóa hoặc nhập từ Excel được lưu trong trình duyệt của máy đang dùng (localStorage). Máy hoặc trình duyệt khác sẽ không thấy. Để chuyển dữ liệu sang máy khác, bấm Xuất Excel rồi Nhập từ Excel ở máy đó.
-- Nhập từ Excel: bấm Tải file mẫu để lấy đúng tên cột (Khóa học, Tên chuyên đề, Giảng viên, Công ty, Địa điểm đào tạo, Ngày đào tạo, Thời lượng (giờ), Số học viên, Trạng thái). Ngày nhập dạng dd/mm/yyyy hoặc kiểu ngày của Excel. Dòng thiếu tên hoặc ngày sẽ bị bỏ qua.
-- Chức năng Excel dùng thư viện SheetJS tải từ cdnjs, nên cần có mạng.
-- Trang dùng phông Be Vietnam Pro từ Google Fonts; nếu không có mạng, trình duyệt dùng phông hệ thống.
+Repository công khai thì `data.js` và trang web cũng công khai: ai có địa chỉ đều xem được số liệu.

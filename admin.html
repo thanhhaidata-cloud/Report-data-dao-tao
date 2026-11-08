@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quản trị - Chương trình đào tạo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+<main>
+<h1>Chương trình đào tạo công ty</h1>
+<p class="sub">Trang quản trị: thay đổi chỉ lưu trên máy này. Bấm "Xuất dữ liệu để đăng" rồi tải file data.js lên GitHub để mọi người thấy số liệu mới.</p>
+
+<section class="top">
+  <div class="card hero">
+    <div class="ring" id="ring"><span id="pct">0%</span></div>
+    <div>
+      <p class="big" id="doneTxt"></p>
+      <p class="muted" id="notTxt"></p>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="card k"><b id="kTotal">0</b><small>Tổng chuyên đề</small></div>
+    <div class="card k"><b id="kHours">0</b><small>Tổng thời gian (giờ)</small></div>
+    <div class="card k"><b id="kStu">0</b><small>Lượt học viên tham dự</small></div>
+    <div class="card k warn"><b id="kNot">0</b><small>Chưa hoàn thành</small></div>
+  </div>
+</section>
+
+<div class="bar">
+  <h2>Danh sách chuyên đề</h2>
+  <div class="tabs" role="group" aria-label="Lọc theo thời gian">
+    <button data-f="week" aria-pressed="false">Tuần này</button>
+    <button data-f="month" aria-pressed="false">Tháng này</button>
+    <button data-f="all" aria-pressed="true">Tất cả</button>
+  </div>
+</div>
+<div class="flt">
+  <label>Từ ngày <input type="date" id="fFrom"></label>
+  <label>đến ngày <input type="date" id="fTo"></label>
+  <label>Tháng <input type="month" id="fMonth"></label>
+  <label>Năm <select id="fYear"><option value="">Tất cả</option></select></label>
+</div>
+<div class="tools">
+  <label class="btn" for="fFile">Nhập từ Excel</label>
+  <input type="file" id="fFile" accept=".xlsx,.xls,.csv">
+  <select id="fMode" aria-label="Cách nhập dữ liệu"><option value="add">Thêm vào dữ liệu hiện có</option><option value="replace">Thay thế toàn bộ dữ liệu</option></select>
+  <button class="btn" type="button" id="bTpl">Tải file mẫu</button>
+  <button class="btn" type="button" id="bExp">Xuất Excel</button>
+  <button class="btn pri" type="button" id="bPub">Xuất dữ liệu để đăng</button>
+  <button class="btn" type="button" id="bClr">Xóa tất cả</button>
+  <span id="msg" role="status"></span>
+</div>
+<div class="card">
+  <div class="wrap"><table>
+    <colgroup><col style="width:4%"><col style="width:13%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:8%"><col style="width:9%"><col class="actc" style="width:10%"></colgroup>
+    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th>Thời lượng</th><th>Số học viên</th><th>Số giờ đào tạo</th><th>Trạng thái</th><th class="actc">Thao tác</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <p class="muted" id="fHint">Thêm chuyên đề mới</p>
+  <form id="f">
+    <input id="fName" placeholder="Tên chuyên đề" required>
+    <input id="fCourse" list="courses" placeholder="Khóa học" required>
+    <datalist id="courses"><option value="Khóa học 1"><option value="Khóa học 2"></datalist>
+    <input id="fTeacher" placeholder="Tên giảng viên" required>
+    <input id="fCompany" placeholder="Công ty" required>
+    <input id="fDate" type="date" required aria-label="Ngày đào tạo">
+    <input id="fHours" type="number" min="0.5" step="0.5" placeholder="Thời lượng (giờ)" required>
+    <input id="fStu" type="number" min="0" step="1" placeholder="Số học viên" required>
+    <input id="fRoom" placeholder="Địa điểm đào tạo" required>
+    <button class="btn" type="submit" id="fSubmit">Thêm chuyên đề</button>
+    <button class="btn" type="button" id="fCancel" hidden>Hủy</button>
+  </form>
+</div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="data.js"></script>
+<script src="script.js?v=6"></script>
+</body>
+</html>

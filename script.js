@@ -1,18 +1,12 @@
 const day=86400000, today=new Date(); today.setHours(0,0,0,0);
 const iso=d=>{const x=new Date(d);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
 const off=n=>iso(+today+n*day);
-let data=[
- {n:"Định hướng nhân viên mới",c:"Khóa học 1",d:off(-20),h:3,s:24,t:"Nguyễn Văn An",cty:"Công ty A",p:"Phòng A1",ok:true},
- {n:"An toàn thông tin cơ bản",c:"Khóa học 1",d:off(-12),h:2,s:58,t:"Trần Thị Bình",cty:"Công ty A",p:"Phòng A2",ok:true},
- {n:"Kỹ năng giao tiếp nội bộ",c:"Khóa học 1",d:off(-6),h:4,s:32,t:"Lê Minh Châu",cty:"Công ty B",p:"Phòng B1",ok:true},
- {n:"Quản lý thời gian",c:"Khóa học 1",d:off(-1),h:2,s:41,t:"Phạm Quốc Dũng",cty:"Công ty A",p:"Phòng A1",ok:true},
- {n:"Kỹ năng chăm sóc khách hàng",c:"Khóa học 2",d:off(1),h:3,s:36,t:"Trần Thị Bình",cty:"Công ty B",p:"Phòng B2",ok:false},
- {n:"Lãnh đạo nhóm cho trưởng bộ phận",c:"Khóa học 2",d:off(3),h:6,s:15,t:"Võ Thanh Hà",cty:"Công ty B",p:"Phòng A2",ok:false},
- {n:"Quy trình ISO nội bộ",c:"Khóa học 2",d:off(12),h:2.5,s:50,t:"Nguyễn Văn An",cty:"Công ty A",p:"Phòng B1",ok:false}
-];
+const VIEW=document.body.classList.contains("view");
+const CS=VIEW?10:11;
+let data=(Array.isArray(window.TRAINING_DATA)?window.TRAINING_DATA:[]).map(r=>({...r}));
 const KEY="dt-dashboard-data-v1";
-try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(Array.isArray(s))data=s}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+if(!VIEW){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(Array.isArray(s))data=s}catch(e){}}
+function save(){if(VIEW)return;try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
 let editIdx=-1;
 let filter="all",from="",to="",ym="",yr="";
 const mon=new Date(+today-((today.getDay()+6)%7)*day), sun=new Date(+mon+6*day);
@@ -41,11 +35,11 @@ function render(){
   $("notTxt").textContent=not+" chuyên đề chưa hoàn thành";
   let lastC=null,seq=0;const list=data.map((r,i)=>({r,i})).filter(x=>inRange(x.r)).sort((a,b)=>a.r.c.localeCompare(b.r.c,"vi",{numeric:true})||(a.r.d<b.r.d?-1:1));
   $("rows").innerHTML=list.length?list.map(({r,i},k)=>{
-    const [y,m,dd]=r.d.split("-");let head="";if(r.c!==lastC){lastC=r.c;seq=0;const g=list.filter(z=>z.r.c===r.c),gd=g.filter(z=>z.r.ok).length;head=`<tr class="grp"><td colspan="11"><b>${esc(r.c)}</b><span>${g.length} chuyên đề, ${gd} đã hoàn thành</span></td></tr>`}seq++;
+    const [y,m,dd]=r.d.split("-");let head="";if(r.c!==lastC){lastC=r.c;seq=0;const g=list.filter(z=>z.r.c===r.c),gd=g.filter(z=>z.r.ok).length;head=`<tr class="grp"><td colspan="${CS}"><b>${esc(r.c)}</b><span>${g.length} chuyên đề, ${gd} đã hoàn thành</span></td></tr>`}seq++;
     return head+`<tr><td>${seq}</td><td>${esc(r.n)}</td><td>${esc(r.t)}</td><td>${esc(r.cty||"")}</td><td>${esc(r.p)}</td><td>${dd}/${m}/${y}</td><td>${fmt(r.h)} giờ</td><td>${r.s}</td><td>${fmt(r.h*r.s)} giờ</td>
     <td><button class="tag ${r.ok?"ok":"no"}" data-i="${i}" title="Bấm để đổi trạng thái">${r.ok?"Hoàn thành":"Chưa hoàn thành"}</button></td>
-    <td><button class="act" data-a="edit" data-i="${i}">Sửa</button><button class="act del" data-a="del" data-i="${i}">Xóa</button></td></tr>`}).join("")
-    :`<tr><td colspan="11" class="empty">Chưa có chuyên đề nào trong khoảng thời gian này. Thêm chuyên đề ở phía dưới.</td></tr>`;
+    <td class="actc"><button class="act" data-a="edit" data-i="${i}">Sửa</button><button class="act del" data-a="del" data-i="${i}">Xóa</button></td></tr>`}).join("")
+    :`<tr><td colspan="${CS}" class="empty">Chưa có chuyên đề nào trong khoảng thời gian này. Thêm chuyên đề ở phía dưới.</td></tr>`;
   document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===filter));
 }
 function clearCtl(keep){
@@ -64,6 +58,7 @@ document.querySelector(".tabs").addEventListener("click",e=>{const b=e.target.cl
 $("fMonth").addEventListener("change",()=>{clearCtl("ym");ym=$("fMonth").value;filter=ym?"ym":"all";render()});
 $("fYear").addEventListener("change",()=>{clearCtl("year");yr=$("fYear").value;filter=yr?"year":"all";render()});
 $("rows").addEventListener("click",e=>{
+  if(VIEW)return;
   const b=e.target.closest(".tag");
   if(b){const r=data[+b.dataset.i];r.ok=!r.ok;save();render();return}
   const a=e.target.closest(".act");if(!a)return;
@@ -141,6 +136,13 @@ $("bExp").addEventListener("click",()=>{
   saveXlsx([COLS.concat("Số giờ đào tạo")].concat(data.map(r=>[r.c,r.n,r.t,r.cty||"",r.p,vnDate(r.d),r.h,r.s,r.ok?"Hoàn thành":"Chưa hoàn thành",r.h*r.s])),
     "danh-sach-chuyen-de.xlsx","Chuyên đề");
   msg("Đã xuất "+data.length+" chuyên đề ra file Excel.");
+});
+$("bPub").addEventListener("click",()=>{
+  const txt="/* Dữ liệu hiển thị cho mọi người. Xuất từ trang quản trị. */\nwindow.TRAINING_DATA=[\n"+data.map(r=>JSON.stringify(r)).join(",\n")+"\n];\n";
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([txt],{type:"text/javascript"}));a.download="data.js";
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  msg("Đã tạo file data.js ("+data.length+" chuyên đề). Tải file này lên GitHub, thay file data.js cũ, để mọi người cùng thấy số liệu mới.");
 });
 $("bClr").addEventListener("click",()=>{
   if(confirm("Xóa toàn bộ dữ liệu chuyên đề hiện có?")){data=[];stopEdit();save();fillYears();fillCourses();render();msg("Đã xóa toàn bộ dữ liệu.")}

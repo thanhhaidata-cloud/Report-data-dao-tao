@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dashboard chương trình đào tạo</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
-<body>
+<body class="view">
 <main>
 <h1>Chương trình đào tạo công ty</h1>
-<p class="sub">Dữ liệu mẫu. Thêm chuyên đề hoặc bấm vào trạng thái để cập nhật, các chỉ số tự tính lại.</p>
+<p class="sub">Số liệu theo dõi chương trình đào tạo. Trang chỉ để xem.</p>
 
 <section class="top">
   <div class="card hero">
@@ -48,13 +48,14 @@
   <select id="fMode" aria-label="Cách nhập dữ liệu"><option value="add">Thêm vào dữ liệu hiện có</option><option value="replace">Thay thế toàn bộ dữ liệu</option></select>
   <button class="btn" type="button" id="bTpl">Tải file mẫu</button>
   <button class="btn" type="button" id="bExp">Xuất Excel</button>
+  <button class="btn pri" type="button" id="bPub">Xuất dữ liệu để đăng</button>
   <button class="btn" type="button" id="bClr">Xóa tất cả</button>
   <span id="msg" role="status"></span>
 </div>
 <div class="card">
   <div class="wrap"><table>
-    <colgroup><col style="width:3%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:7%"><col style="width:10%"><col style="width:8%"></colgroup>
-    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th>Thời lượng</th><th>Số học viên</th><th>Số giờ đào tạo</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+    <colgroup><col style="width:4%"><col style="width:13%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:8%"><col style="width:6%"><col style="width:6%"><col style="width:8%"><col style="width:9%"><col class="actc" style="width:10%"></colgroup>
+    <thead><tr><th>STT</th><th>Tên chuyên đề</th><th>Giảng viên</th><th>Công ty</th><th>Địa điểm đào tạo</th><th>Ngày đào tạo</th><th>Thời lượng</th><th>Số học viên</th><th>Số giờ đào tạo</th><th>Trạng thái</th><th class="actc">Thao tác</th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
   <p class="muted" id="fHint">Thêm chuyên đề mới</p>
@@ -74,6 +75,7 @@
 </div>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="script.js?v=5"></script>
+<script src="data.js"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
